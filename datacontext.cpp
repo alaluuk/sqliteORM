@@ -6,16 +6,15 @@ DataContext::DataContext() {
     QString myFolder = "C:/codes/qt_projects/sqliteORM";
     db.setDatabaseName(myFolder + "/database/mydb.db");
     db.open();
-}
-
-void DataContext::SetPersonContext()
-{
     if (!db.open()) {
         qDebug() << "Error: Unable to open the database";
 
     }
+}
 
-    QList<Person> objectList;
+void DataContext::SetPersonContext()
+{
+
 
     QSqlQuery query("SELECT * FROM person");
 
@@ -30,3 +29,14 @@ void DataContext::SetPersonContext()
 
     db.close();
 }
+
+QList<Person> DataContext::getObjectList() const
+{
+    return objectList;
+}
+
+Person DataContext::getOnePerson(int x)
+{
+    return objectList[x];
+}
+

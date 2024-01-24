@@ -13,6 +13,7 @@ public:
     DataContext();
     void SetPersonContext();
     QList<Person> getObjectList() const;
+    Person getOnePerson(int x);
 
 private:
     QSqlDatabase db;
