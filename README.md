@@ -10,18 +10,21 @@ Yleensä siis käytetään jotain valmista ORM-kirjastoa. Tässä esimerkissä t
 
 ## Sovelluksen rakenne
 
+Tietokannan **person-taulu** sisältää kentät 
+<ul>
+<li>id integer</li>
+<li>firstname varchar(45)</li>
+<li>lastname varchar(45)</li>
+</ul>
+
 **Person-luokka** sisältää kentät
 <ul>
 <li>int id</li>
 <li>QString fname</li>
 <li>QString lname </li>
 </ul>
-Tietokannan <b>person-taulu</b> sisältää kentät 
-<ul>
-<li>id integer</li>
-<li>firstname varchar(45)</li>
-<li>lastname varchar(45)</li>
-</ul>
+
+**Datacontext**-luokassa on määritetty **objectList** niminen oliolista. Kun Datacontext-luokasta luodaan olio, niin tietokannasta haetaan person-taulun data ja kustakin sen rivistä luodaan olio tuohon listaan.
 
 **Datacontext**-luokan **SetObjectList**-metodissa tehdään tietokannan datan mäppäys oliolistaan nimeltään **objectList**.
 
