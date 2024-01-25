@@ -16,7 +16,7 @@ Yleensä siis käytetään jotain valmista ORM-kirjastoa. Tässä esimerkissä t
 <li>QString fname</li>
 <li>QString lname </li>
 </ul>
-Ja tietokannan **person-taulu** sisältää kentät 
+Tietokannan <b>person-taulu</b> sisältää kentät 
 <ul>
 <li>id integer</li>
 <li>firstname varchar(45)</li>
