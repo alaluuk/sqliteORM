@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
         DataContext objectContext;
         objectContext.SetPersonContext();
-        cout<<"Eka :"<<objectContext.getOnePerson(0).getFname().toStdString()<<endl;
+        cout<<"Eka :"<<objectContext.getOnePerson(9).getFname().toStdString()<<endl;
 
         foreach (const Person &obj, objectContext.getObjectList()) {
             cout << "ID:" << obj.getId() << " Firstname:" << obj.getFname().toStdString()<<" Lastname:"<<obj.getLname().toStdString()<<endl;

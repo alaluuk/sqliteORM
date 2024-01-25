@@ -37,6 +37,11 @@ QList<Person> DataContext::getObjectList() const
 
 Person DataContext::getOnePerson(int x)
 {
-    return objectList[x];
+    foreach (const Person &obj, objectList) {
+        if(obj.getId()==x) {
+            return obj;
+        }
+    }
+    return Person(-1, "No fname","No lname");
 }
 
