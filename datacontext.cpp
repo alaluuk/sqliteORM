@@ -68,15 +68,22 @@ QString DataContext::AddPerson(Person &obj) {
 
 QString DataContext::UpdatePerson(Person &updateObj, int x)
 {
-    for (int i = 0; i < objectList.size(); ++i) {
+    QSqlQuery query;
+    query.prepare("UPDATE person SET firstname=:fn, lastname=:ln WHERE id=:id");
+    query.bindValue(":id", x);
+    query.bindValue(":fn", updateObj.getFname());
+    query.bindValue(":ln", updateObj.getLname());
+    bool res = query.exec();
+    if (res) {
+        for (int i = 0; i < objectList.size(); ++i) {
         Person &obj = objectList[i];
         if (obj.getId() == x) {
             obj.setFname(updateObj.getFname());
             obj.setLname(updateObj.getLname());
-            return "Person updated successfully"; // You can change this return value as needed
-        }
+            return "Person updated successfully";
     }
-
+    }
+    }
     return "Person not found";
 }
 
