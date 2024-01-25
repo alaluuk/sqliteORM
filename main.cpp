@@ -12,14 +12,14 @@ using namespace std;
 int main(int argc, char *argv[]) {
   QCoreApplication a(argc, argv);
   int chosen = 14;
-  DataContext objectContext;
-  objectContext.SetPersonContext();
+  DataContext persons;
+  persons.SetPersonContext();
   cout << "Valittu id :"<<chosen<<":"<<endl;
-  cout <<"fname="<<objectContext.getOnePerson(chosen).getFname().toStdString()
-       <<" lname="<<objectContext.getOnePerson(chosen).getLname().toStdString()
+  cout <<"fname="<<persons.getOnePerson(chosen).getFname().toStdString()
+       <<" lname="<<persons.getOnePerson(chosen).getLname().toStdString()
        << endl;
   cout<<endl<<"Kaikki henkilot"<<endl;
-  foreach (const Person &obj, objectContext.getObjectList()) {
+  foreach (const Person &obj, persons.getObjectList()) {
     cout << "ID:" << obj.getId()
          << " Firstname:" << obj.getFname().toStdString()
          << " Lastname:" << obj.getLname().toStdString() << endl;
