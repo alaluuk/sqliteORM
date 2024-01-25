@@ -10,25 +10,25 @@
 using namespace std;
 
 int menu();
-void allRows();
-void oneRow();
-void addData();
+void allRows(DataContext *persons);
+void oneRow(DataContext *persons);
+void addData(DataContext *persons);
 void updateData();
 void deleteData();
 
 int main(int argc, char *argv[]) {
   QCoreApplication a(argc, argv);
-  DataContext persons;
+  DataContext p;
 
   int choice = 1;
   while (choice != 0) {
     choice = menu();
     if (choice == 1) {
-      allRows();
+      allRows(&p);
     } else if (choice == 2) {
-      oneRow();
+      oneRow(&p);
     } else if (choice == 3) {
-      addData();
+      addData(&p);
     } else if (choice == 4) {
       updateData();
     } else if (choice == 5) {
@@ -57,26 +57,23 @@ int menu() {
   system("CLS");
   return choice;
 }
-void allRows() {
-  DataContext persons;
+void allRows(DataContext *persons) {
   cout << endl << "Kaikki henkilot" << endl;
-  foreach (const Person &obj, persons.GetObjectList()) {
+    foreach (const Person &obj, persons->GetObjectList()) {
     cout << "ID:" << obj.getId()
-         << " Firstname:" << obj.getFname().toStdString()
-         << " Lastname:" << obj.getLname().toStdString() << endl;
+         << " :" << obj.getFname().toStdString()
+         << " :" << obj.getLname().toStdString() << endl;
   }
 }
-void oneRow() {
-  DataContext persons;
+void oneRow(DataContext *persons) {
   cout << "Anna id" << endl;
   int id;
   cin >> id;
-  cout << "fname=" << persons.GetOnePerson(id).getFname().toStdString()
-       << " lname=" << persons.GetOnePerson(id).getLname().toStdString()
+  cout << "fname=" << persons->GetOnePerson(id).getFname().toStdString()
+       << " lname=" << persons->GetOnePerson(id).getLname().toStdString()
        << endl;
 }
-void addData() {
-  DataContext persons;
+void addData(DataContext *persons) {
   QString fname;
   QString lname;
   QTextStream qtin(stdin);
@@ -85,7 +82,7 @@ void addData() {
   cout << "Anna sukunimi" << endl;
   lname = qtin.readLine();
   Person objectAdd = Person(fname, lname);
-  QString res = persons.AddPerson(objectAdd);
+  QString res = persons->AddPerson(objectAdd);
   cout << res.toStdString() << endl;
 }
 void updateData() { cout << "Ei tehty" << endl; }
