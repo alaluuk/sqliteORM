@@ -16,6 +16,8 @@ public:
     QList<Person> GetObjectList() const;
     Person GetOnePerson(int x);
     QString AddPerson(Person &obj);
+    QString UpdatePerson(Person &updateObj, int x);
+    QString DeletePerson(int x);
 
 private:
     QSqlDatabase db;

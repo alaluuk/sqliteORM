@@ -28,3 +28,13 @@ QString Person::getLname() const
 {
     return lname;
 }
+
+void Person::setFname(const QString &newFname)
+{
+    fname = newFname;
+}
+
+void Person::setLname(const QString &newLname)
+{
+    lname = newLname;
+}

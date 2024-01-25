@@ -13,8 +13,8 @@ int menu();
 void allRows(DataContext *persons);
 void oneRow(DataContext *persons);
 void addData(DataContext *persons);
-void updateData();
-void deleteData();
+void updateData(DataContext *persons);
+void deleteData(DataContext *persons);
 
 int main(int argc, char *argv[]) {
   QCoreApplication a(argc, argv);
@@ -30,9 +30,9 @@ int main(int argc, char *argv[]) {
     } else if (choice == 3) {
       addData(&p);
     } else if (choice == 4) {
-      updateData();
+      updateData(&p);
     } else if (choice == 5) {
-      deleteData();
+      deleteData(&p);
     }
 
     else {
@@ -85,5 +85,25 @@ void addData(DataContext *persons) {
   QString res = persons->AddPerson(objectAdd);
   cout << res.toStdString() << endl;
 }
-void updateData() { cout << "Ei tehty" << endl; }
-void deleteData() { cout << "Ei tehty" << endl; }
+void updateData(DataContext *persons) {
+    int id;
+    QString fname;
+    QString lname;
+    QTextStream qtin(stdin);
+    cout<<"Anna id"<<endl;
+    cin>>id;
+    cout<<"Anna etunimi"<<endl;
+    fname=qtin.readLine();
+    cout<<"Anna sukunimi"<<endl;
+    lname=qtin.readLine();
+    Person updateObj=Person(fname,lname);
+    QString res =persons->UpdatePerson(updateObj, id);
+    cout << res.toStdString() << endl;
+}
+void deleteData(DataContext *persons) {
+    cout << "Anna id" << endl;
+    int id;
+    cin >> id;
+    QString res =persons->DeletePerson(id);
+    cout << res.toStdString() << endl;
+}

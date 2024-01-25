@@ -15,6 +15,10 @@ public:
 
     QString getLname() const;
 
+    void setFname(const QString &newFname);
+
+    void setLname(const QString &newLname);
+
 private:
     int id;
     QString fname;
