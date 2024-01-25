@@ -12,6 +12,14 @@ DataContext::DataContext() {
     }
 }
 
+DataContext::~DataContext()
+{
+    QString myConnection = db.connectionName();
+    db.close();
+    db = QSqlDatabase();
+    db.removeDatabase(myConnection);
+}
+
 void DataContext::SetPersonContext()
 {
 
