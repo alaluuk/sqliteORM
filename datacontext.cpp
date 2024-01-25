@@ -35,7 +35,9 @@ void DataContext::SetObjectList() {
   db.close();
 }
 
-QList<Person> DataContext::GetObjectList() const { return objectList; }
+QList<Person> DataContext::GetObjectList() const {
+    return objectList;
+}
 
 Person DataContext::GetOnePerson(int x) {
   foreach (const Person &obj, objectList) {

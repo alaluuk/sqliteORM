@@ -62,24 +62,29 @@ void allRows(DataContext *persons) {
     foreach (const Person &obj, persons->GetObjectList()) {
     cout << "ID:" << obj.getId()
          << " :" << obj.getFname().toStdString()
-         << " :" << obj.getLname().toStdString() << endl;
+         << " " << obj.getLname().toStdString() << endl;
   }
 }
 void oneRow(DataContext *persons) {
-  cout << "Anna id" << endl;
+  cout << "Anna id : ";
   int id;
   cin >> id;
-  cout << "fname=" << persons->GetOnePerson(id).getFname().toStdString()
-       << " lname=" << persons->GetOnePerson(id).getLname().toStdString()
-       << endl;
+  if(persons->GetOnePerson(id).getId()==-1){
+    cout<<"Henkiloa ei ole"<<endl;
+  }
+  else{
+    cout << "Henkilo = " << persons->GetOnePerson(id).getFname().toStdString()
+    << " " << persons->GetOnePerson(id).getLname().toStdString()<< endl;
+  }
+
 }
 void addData(DataContext *persons) {
   QString fname;
   QString lname;
   QTextStream qtin(stdin);
-  cout << "Anna etunimi" << endl;
+  cout << "Anna etunimi : ";
   fname = qtin.readLine();
-  cout << "Anna sukunimi" << endl;
+  cout << "Anna sukunimi : ";
   lname = qtin.readLine();
   Person objectAdd = Person(fname, lname);
   QString res = persons->AddPerson(objectAdd);
@@ -90,18 +95,18 @@ void updateData(DataContext *persons) {
     QString fname;
     QString lname;
     QTextStream qtin(stdin);
-    cout<<"Anna id"<<endl;
+    cout<<"Anna id : ";
     cin>>id;
-    cout<<"Anna etunimi"<<endl;
+    cout<<"Anna etunimi : ";
     fname=qtin.readLine();
-    cout<<"Anna sukunimi"<<endl;
+    cout<<"Anna sukunimi : ";
     lname=qtin.readLine();
     Person updateObj=Person(fname,lname);
     QString res =persons->UpdatePerson(updateObj, id);
     cout << res.toStdString() << endl;
 }
 void deleteData(DataContext *persons) {
-    cout << "Anna id" << endl;
+    cout << "Anna id : ";
     int id;
     cin >> id;
     QString res =persons->DeletePerson(id);
