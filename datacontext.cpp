@@ -8,7 +8,9 @@ DataContext::DataContext() {
     db.open();
     if (!db.open()) {
         qDebug() << "Error: Unable to open the database";
-
+    }
+    else{
+        SetObjectList();
     }
 }
 
@@ -59,8 +61,14 @@ QString DataContext::AddPerson(Person &obj)
     query.bindValue(":fn", obj.getFname());
     query.bindValue(":ln", obj.getLname());
     bool res = query.exec();
-    // qDebug()<<res;
     if (res) {
+        QSqlQuery query("SELECT last_insert_rowid()");
+        if (query.exec() && query.next()) {
+            //lisätään uusi olio listaan
+            int lastId=query.value(0).toInt();
+            Person addPerson=Person(lastId,obj.getFname(),obj.getLname());
+            objectList.append(addPerson);
+        }
         return "added person: "+obj.getFname()+" "+obj.getLname();
     } else {
         return "something went wrong";
