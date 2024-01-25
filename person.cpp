@@ -8,6 +8,12 @@ Person::Person(int i, QString fn, QString ln)
     lname=ln;
 }
 
+Person::Person(QString fn, QString ln)
+{
+    fname=fn;
+    lname=ln;
+}
+
 int Person::getId() const
 {
     return id;

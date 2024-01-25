@@ -14,6 +14,7 @@ int main(int argc, char *argv[]) {
   int chosen = 14;
   DataContext persons;
   persons.SetObjectList();
+
   cout << "Valittu id :"<<chosen<<":"<<endl;
   cout <<"fname="<<persons.GetOnePerson(chosen).getFname().toStdString()
        <<" lname="<<persons.GetOnePerson(chosen).getLname().toStdString()
@@ -24,6 +25,9 @@ int main(int argc, char *argv[]) {
          << " Firstname:" << obj.getFname().toStdString()
          << " Lastname:" << obj.getLname().toStdString() << endl;
   }
+  Person objectAdd=Person("Matti","Mainio");
+  QString res=persons.AddPerson(objectAdd);
+  cout<<res.toStdString()<<endl;
 
   return a.exec();
 }

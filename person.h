@@ -8,6 +8,7 @@ class Person
 {
 public:
     Person(int i, QString fn, QString ln);
+    Person(QString fn, QString ln);
     int getId() const;
 
     QString getFname() const;
