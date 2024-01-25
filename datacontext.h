@@ -12,9 +12,10 @@ class DataContext
 public:
     DataContext();
     ~DataContext();
-    void SetPersonContext();
-    QList<Person> getObjectList() const;
-    Person getOnePerson(int x);
+    void SetObjectList();
+    QList<Person> GetObjectList() const;
+    Person GetOnePerson(int x);
+    void AddPerson();
 
 private:
     QSqlDatabase db;

@@ -38,12 +38,12 @@ void DataContext::SetPersonContext()
     db.close();
 }
 
-QList<Person> DataContext::getObjectList() const
+QList<Person> DataContext::GetObjectList() const
 {
     return objectList;
 }
 
-Person DataContext::getOnePerson(int x)
+Person DataContext::GetOnePerson(int x)
 {
     foreach (const Person &obj, objectList) {
         if(obj.getId()==x) {
