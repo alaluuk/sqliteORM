@@ -20,10 +20,8 @@ DataContext::~DataContext()
     db.removeDatabase(myConnection);
 }
 
-void DataContext::SetPersonContext()
+void DataContext::SetObjectList()
 {
-
-
     QSqlQuery query("SELECT * FROM person");
 
     while (query.next()) {
@@ -51,5 +49,21 @@ Person DataContext::GetOnePerson(int x)
         }
     }
     return Person(-1, "No fname","No lname");
+}
+
+QString DataContext::AddPerson(Person &obj)
+{
+    QSqlQuery query;
+    query.prepare(
+        "INSERT INTO person(firstname,lastname) VALUES(:fn, :ln)");
+    query.bindValue(":fn", obj.getFname());
+    query.bindValue(":ln", obj.getLname());
+    bool res = query.exec();
+    // qDebug()<<res;
+    if (res) {
+        return "added person: "+obj.getFname()+" "+obj.getLname();
+    } else {
+        return "something went wrong";
+    }
 }
 

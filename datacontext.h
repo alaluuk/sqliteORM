@@ -15,7 +15,7 @@ public:
     void SetObjectList();
     QList<Person> GetObjectList() const;
     Person GetOnePerson(int x);
-    void AddPerson();
+    QString AddPerson(Person &obj);
 
 private:
     QSqlDatabase db;
