@@ -21,6 +21,7 @@ DataContext::~DataContext() {
 }
 
 void DataContext::SetObjectList() {
+  //get data from database and push it to the QList
   QSqlQuery query("SELECT * FROM person");
 
   while (query.next()) {
@@ -31,8 +32,6 @@ void DataContext::SetObjectList() {
     Person obj(id, fname, lname);
     objectList.append(obj);
   }
-
-  db.close();
 }
 
 QList<Person> DataContext::GetObjectList() const {
@@ -40,24 +39,28 @@ QList<Person> DataContext::GetObjectList() const {
 }
 
 Person DataContext::GetOnePerson(int x) {
+  //get the chosen Person from QList
   foreach (const Person &obj, objectList) {
     if (obj.getId() == x) {
       return obj;
     }
   }
+  //if Person does not exist on QList
   return Person(-1, "No fname", "No lname");
 }
 
 QString DataContext::AddPerson(Person &obj) {
+  //add the Person to database
   QSqlQuery query;
   query.prepare("INSERT INTO person(firstname,lastname) VALUES(:fn, :ln)");
   query.bindValue(":fn", obj.getFname());
   query.bindValue(":ln", obj.getLname());
-  bool res = query.exec();
-  if (res) {
+
+  //if the data was succesfully added to database push it to QList
+  if (query.exec()) {
+    //check what is the id of the inserted Person
     QSqlQuery query("SELECT last_insert_rowid()");
     if (query.exec() && query.next()) {
-      // add new object to list
       int lastId = query.value(0).toInt();
       Person addPerson = Person(lastId, obj.getFname(), obj.getLname());
       objectList.append(addPerson);
@@ -70,46 +73,49 @@ QString DataContext::AddPerson(Person &obj) {
 
 QString DataContext::UpdatePerson(Person &updateObj, int x)
 {
+    //update the database
     QSqlQuery query;
     query.prepare("UPDATE person SET firstname=:fn, lastname=:ln WHERE id=:id");
     query.bindValue(":id", x);
     query.bindValue(":fn", updateObj.getFname());
     query.bindValue(":ln", updateObj.getLname());
-    bool res = query.exec();
-    if (res) {
+    //if database was succesfully updated, update QList
+    if (query.exec()) {
         for (int i = 0; i < objectList.size(); ++i) {
-        Person &obj = objectList[i];
-        if (obj.getId() == x) {
-            obj.setFname(updateObj.getFname());
-            obj.setLname(updateObj.getLname());
-            return "Person updated successfully";
-    }
-    }
+            Person &obj = objectList[i];
+            if (obj.getId() == x) {
+                obj.setFname(updateObj.getFname());
+                obj.setLname(updateObj.getLname());
+                return "Person updated successfully";
+            }
+        }
     }
     return "Person not found";
 }
 
 QString DataContext::DeletePerson(int x) {
+  //delete Person from database
   QSqlQuery query;
   query.prepare("DELETE FROM person WHERE id=:id");
   query.bindValue(":id", x);
-  bool res = query.exec();
-  if (res) {
+  //if Person was deleted from database, delete from QList
+  if (query.exec()) {
     int indexToRemove = -1;
     for (int i = 0; i < objectList.size(); ++i) {
-      if (objectList.at(i).getId() == x) {
+        if (objectList.at(i).getId() == x) {
         indexToRemove = i;
         break;
-      }
+        }
     }
-    // Remove the object if found
     if (indexToRemove != -1) {
-      objectList.removeAt(indexToRemove);
-      return "Deleted";
-    } else {
-      return "Person does not exist";
+        objectList.removeAt(indexToRemove);
+        return "Person deleted";
     }
-  } else {
+    else {
+        return "Person does not exist";
+    }
+  }
+  else {
     return "Person does not exist";
   }
 }
