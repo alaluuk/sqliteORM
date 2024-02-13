@@ -1,10 +1,18 @@
 #include "datacontext.h"
 
+#include <QDir>
+
 DataContext::DataContext() {
   QSqlDatabase db;
   db = QSqlDatabase::addDatabase("QSQLITE");
-  QString myFolder = "C:/codes/qt_projects/sqliteORM";
-  db.setDatabaseName(myFolder + "/database/mydb.db");
+  //database kansio on projektikansion sisällä
+  //asetetaan sen polku
+  QDir dir("../database");
+  QString myFolder = dir.absolutePath();
+  //hakemisto polun tarkistus
+  //qDebug()<<myFolder;
+  db.setDatabaseName(myFolder+"/mydb.db");
+  //avataan tietokantayhteys
   db.open();
   if (!db.open()) {
     qDebug() << "Error: Unable to open the database";
